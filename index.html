@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>File Upload in Node.js using multer | nodejsera</title>
+  </head>
+  <body>
+    <form action="/" enctype="multipart/form-data" method="post">
+      <input class="box" type="file" name="file" id="file" />
+      <br />
+      <input
+        type="submit"
+        id="submitDetails"
+        name="submitDetails"
+        value="Upload single file"
+      />
+      <!-- onclick="handleSubmit()" -->
+    </form>
+  </body>
+  <script>
+    handleSubmit = async (e) => {
+      e?.preventDefault();
+      const file = document.getElementById("file").files[0];
+      const form = new FormData();
+      form.append("file", file);
+      try {
+        const res = await fetch("/", {
+          // no need of headers here
+          method: "POST",
+          // headers: {
+          //   "Content-Type":
+          //     "multipart/form-data; boundary=" +
+          //     "------WebKitFormBoundary" +
+          //     new Date().getTime(),
+          // },
+          body: form,
+        });
+
+        if (res.ok) alert("Image uploaded successfully");
+        console.log("res --=> ", res);
+      } catch (err) {
+        console.error("Error in fetch --> ", err);
+        alert("Error");
+      }
+    };
+  </script>
+</html>
